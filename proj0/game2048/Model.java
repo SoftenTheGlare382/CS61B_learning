@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * The state of a game of 2048.
  *
- * @author TODO: YOUR NAME HERE
+ * @author QPY
  */
 public class Model extends Observable {
     /**
@@ -166,6 +166,7 @@ public class Model extends Observable {
 //                                board.tile(i, k).move(i, j);
 //                                board.tile(i, k).merge(i, j, board.tile(i, j));
                                 score += board.tile(i, j).value();
+                                System.out.println("score:" + score);
                                 changed = true;
                                 break;
                             }else{

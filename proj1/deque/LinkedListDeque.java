@@ -59,19 +59,10 @@ public class LinkedListDeque<T> implements Deque<T> {
         size++;
     }
 
-
-    /**
-     * judge the deque is empty or not
-     *
-     * @return boolean is empty:true, not empty : false
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     /**
      * @return int size of deque
      */
+    @Override
     public int size() {
         return size;
     }
@@ -80,6 +71,7 @@ public class LinkedListDeque<T> implements Deque<T> {
      * @param index the number of item that wanted
      * @return {@link T } the value of item
      */
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
@@ -95,6 +87,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /**
      * print all nodes of deque, space between two nodes
      */
+    @Override
     public void printDeque() {
         TNode temp = sentinelF;
         for (int i = 0; i < size; i++) {
@@ -113,6 +106,7 @@ public class LinkedListDeque<T> implements Deque<T> {
      *
      * @return {@link T }the value of node removed
      */
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -129,6 +123,7 @@ public class LinkedListDeque<T> implements Deque<T> {
      *
      * @return {@link T }the value of node removed
      */
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -145,7 +140,6 @@ public class LinkedListDeque<T> implements Deque<T> {
      *
      * @return {@link Iterator }<{@link T }>
      */
-    @Override
     public Iterator<T> iterator() {
         return new LLDIterator();
     }

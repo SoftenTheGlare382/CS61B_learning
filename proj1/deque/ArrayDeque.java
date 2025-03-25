@@ -50,11 +50,6 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
     public int size() {
         return size;
     }
@@ -62,7 +57,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void printDeque() {
         int i = nextfirst;
-        while (nextlast != i) {
+        while (nextlast != i+1) {
             i = (i + 1) % items.length;
             System.out.println(items[i] + " ");
 
@@ -114,7 +109,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return items[itemIndex];
     }
 
-    @Override
+
     public Iterator<T> iterator() {
         return new ArrayDequeIterable();
     }

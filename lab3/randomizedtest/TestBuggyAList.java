@@ -1,12 +1,6 @@
 package randomizedtest;
 
-import edu.princeton.cs.algs4.StdRandom;
-import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by hug.

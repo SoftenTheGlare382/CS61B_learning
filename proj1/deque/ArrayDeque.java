@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private int size;
     private int nextfirst;
@@ -132,6 +132,12 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     private void resize(int capacity) {
+        if (capacity < size) {
+            return;
+        }
+        if (capacity < 8) {
+            capacity = 8;
+        }
         T[] a = (T[]) new Object[capacity];
         System.arraycopy(items, 0, a, 0, size);
         items = a;

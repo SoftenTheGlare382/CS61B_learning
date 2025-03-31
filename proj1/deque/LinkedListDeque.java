@@ -4,10 +4,21 @@ package deque;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private TNode sentinelF;//头结点
     private int size;//链表长度
     private TNode sentinelB;//尾结点
+//    public Iterator<T> iterator;
+
+//    @Override
+//    public boolean hasNext() {
+//        return iterator.hasNext();
+//    }
+//
+//    @Override
+//    public T next() {
+//        return iterator.next();
+//    }
 
     //节点类
     public class TNode {
@@ -141,34 +152,24 @@ public class LinkedListDeque<T> implements Deque<T> {
      * @return {@link Iterator }<{@link T }>
      */
     public Iterator<T> iterator() {
-        return new LLDIterator();
+        return new LinkedListIterator();
     }
 
-    private class LLDIterator implements Iterator<T> {
-        private int currentIndex = 0;
+    private class LinkedListIterator implements Iterator<T> {
+        private int wizPos;
+        private LinkedListIterator() {
+            wizPos = 0;
+        }
 
-        @Override
         public boolean hasNext() {
-            return currentIndex < size && get(currentIndex) != null;
+            return wizPos < size;
         }
 
-        @Override
         public T next() {
-            T temp = get(currentIndex);
-            currentIndex++;
-            return temp;
+            T item = get(wizPos);
+            wizPos += 1;
+            return item;
         }
-
-        @Override
-        public void remove() {
-            Iterator.super.remove();
-        }
-
-        @Override
-        public void forEachRemaining(Consumer<? super T> action) {
-            Iterator.super.forEachRemaining(action);
-        }
-
     }
 
     /**
@@ -202,15 +203,21 @@ public class LinkedListDeque<T> implements Deque<T> {
      */
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof LinkedListDeque)) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
             return false;
         }
-        LinkedListDeque<?> lld = (LinkedListDeque<?>) o;
-        if (lld.size() != size) {
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque<T> ol = (Deque<T>) o;
+        if (ol.size() != this.size()) {
             return false;
         }
         for (int i = 0; i < size; i++) {
-            if (lld.get(i) != get(i)) {
+            if (!(ol.get(i).equals(this.get(i)))) {
                 return false;
             }
         }

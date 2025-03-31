@@ -1,28 +1,27 @@
-You must answer at least 4 questions, but the remaining ones are optional. The main goal of this file is to get you thinking critically about your own work, but we will also use these self reflections at the end of the semester when we do our internal review of the course.
+您必须回答至少 4 个问题，但其余问题是可选的。此文件的主要目标是让您批判性地思考自己的工作，但我们也会在学期结束时对课程进行内部审查时使用这些自我反思。
+ArrayDeque 中：
 
-ArrayDeque:
-
-Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
-
-A: 
-
-Q: What's something you felt proud of in your code, if anything?
+问：请举例说明员工解决方案中至少一个可以使您的解决方案更好的想法（如果有）。
 
 A:
 
-Q: What's something that was particularly inelegant in your code, if anything?
+问：如果您的代码中有什么让您感到自豪的，如果有的话？
 
 A:
 
-Q: What did you learn by talking to your partner about writing ArrayDeque?
+问：如果您的代码中有什么特别不雅的地方，如果有的话？
 
 A:
 
-Q: What do you wish you would have known before writing ArrayDeque, if anything?
+问：通过与合作伙伴讨论编写 ArrayDeque，您学到了什么？
 
 A:
 
-Q: If you wrote ArrayDeque again, what would you do differently, if anything?
+问：如果有的话，您希望在编写 ArrayDeque 之前了解什么？
+
+A:
+
+问：如果您再次编写 ArrayDeque，如果有的话，您会做些什么不同的事情？
 
 A:
 

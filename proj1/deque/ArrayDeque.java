@@ -114,6 +114,7 @@ public class ArrayDeque<T> implements Deque<T> {
         return new ArrayDequeIterable();
     }
 
+
     private class ArrayDequeIterable implements Iterator<T> {
         private int currentIndex = 0;
 

@@ -5,48 +5,39 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private int size;
+    private int capacity;
     private int nextfirst;
     private int nextlast;
     private T[] items;
 
     public ArrayDeque() {
-        items = (T[]) new Object[8];
-        size = 0;
-        nextfirst = items.length / 2;
-        nextlast = nextfirst + 1;
+        items=(T[])new Object[8];
+        this.capacity=items.length;
+        nextfirst=capacity-1;
+        nextlast=0;
+        size=0;
     }
 
     @Override
     public void addFirst(T item) {
-        if (item == null) {
-            throw new NullPointerException();
-        }
-        //是否需要扩容
-        if (size >= items.length) {
-            resize(size * 2);
-        }
-        items[nextfirst] = item;
-        //是否越界
-        if (nextfirst == 0) {
-            nextfirst = items.length - 1;
-        } else {
-            nextfirst--;
-        }
+        //直接当size等于capacity时调整大小，而不是看两个指针的相对位置
+        if (size==capacity)
+            resize(capacity*2);
+        items[nextfirst]=item;
         size++;
+        //nextFirst有可能越界
+        nextfirst=nextfirst==0?capacity-1:nextfirst-1;
     }
 
     @Override
     public void addLast(T item) {
-        if (item == null) {
-            throw new NullPointerException();
-        }
-        //是否需要扩容
-        if (size >= items.length) {
-            resize(size * 2);
-        }
-        items[nextlast] = item;
-        nextlast = (nextlast + 1) % items.length;
+        if (size==capacity)
+            resize(capacity*2);
+        items[nextlast]=item;
         size++;
+        //nextLast有可能越界
+        nextlast=(nextlast+1)%capacity;
+
     }
 
     @Override
@@ -56,48 +47,37 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public void printDeque() {
-        int i = nextfirst;
-        while (nextlast != i + 1) {
-            i = (i + 1) % items.length;
-            System.out.println(items[i] + " ");
-
-        }
+        //nextFirst有可能指向最后一个位置
+        for (int i=(nextfirst+1)%capacity;i!=nextlast-1;i=(i+1)%capacity)
+            System.out.print(items[i]+" ");
+        System.out.print(items[nextlast-1]);
     }
 
     @Override
     public T removeFirst() {
-        if (isEmpty()) {
-            return null;
-        }
-        T temp = get(0);
-        nextfirst = (nextfirst + 1) % items.length;
+        //当数组的内容为空的时候，才无法进行remove操作，而不是取决于nextFirst的位置。
+        if (size==0)return null;
+        nextfirst=(nextfirst+1)%capacity;
+        T temp=items[nextfirst];
+        items[nextfirst]=null;
         size--;
-        if (items.length >= 16) {
-            if (size < items.length / 4 && size > 0) {
-                resize(items.length / 2);
-            }
-        }
+        if (capacity>=16&&size<capacity/4)
+            resize(capacity/2);
         return temp;
+
     }
 
     @Override
     public T removeLast() {
-        if (isEmpty()) {
-            return null;
-        }
-        T temp = get(size - 1);
-        if (nextlast == 0) {
-            nextlast = items.length - 1;
-        } else {
-            nextlast--;
-        }
+        if (nextlast==0)return null;
+        nextlast--;
+        T temp=items[nextlast];
+        items[nextlast]=null;
         size--;
-        if (items.length >= 16) {
-            if (size < items.length / 4 && size > 0) {
-                resize(items.length / 2);
-            }
-        }
+        if (items.length>=16&&size<items.length/4)
+            resize(items.length/2);
         return temp;
+
     }
 
     @Override
@@ -131,17 +111,20 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
 
-    private void resize(int capacity) {
-        if (capacity < size) {
-            return;
-        }
-        if (capacity < 8) {
-            capacity = 8;
-        }
-        T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, size);
-        items = a;
+    private void resize(int capacity){
+        T[]a=(T[])new Object[capacity];
+        //由于nextFirst和nextLast的位置不确定，只能一个一个地复制到新的数组中
+        //从nextFirst右边的第一个点开始复制
+        //到nextLast左边的第一个点复制结束
+        for (int i=1;i<=size;i++)
+            a[i]=items[(++nextfirst)%this.capacity];
+        this.capacity=capacity;
+        //这两个指针指向什么地方已经不重要了
+        nextfirst=0;
+        nextlast=size+1;
+        items=a;
     }
+
     public boolean equals(Object o){
         if (this == o) {
             return true;

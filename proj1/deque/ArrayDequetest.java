@@ -2,8 +2,9 @@ package deque;
 
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class ArrayDequetest {
     @Test
@@ -134,5 +135,11 @@ public class ArrayDequetest {
 //        }
 
 
+    }
+    @Test
+    public void ARITest() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        lld1.addFirst(0);
+        assertTrue(lld1.removeLast()==0);
     }
 }

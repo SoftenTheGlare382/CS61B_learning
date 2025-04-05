@@ -16,6 +16,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextfirst=capacity-1;
         nextlast=0;
         size=0;
+
     }
 
     @Override
@@ -69,8 +70,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public T removeLast() {
-        if (nextlast==0)return null;
-        nextlast--;
+        if (size==0)return null;
+        nextlast = (nextlast - 1 + capacity) % capacity; // ✅ 处理环形索引
         T temp=items[nextlast];
         items[nextlast]=null;
         size--;

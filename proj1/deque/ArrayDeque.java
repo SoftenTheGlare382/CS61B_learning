@@ -38,7 +38,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         items[nextlast]=item;
         size++;
         //nextLast有可能越界
-        nextlast = (nextlast+1)%capacity;
+        nextlast = (nextlast + 1)%capacity;
 
     }
 
